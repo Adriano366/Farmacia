@@ -66,6 +66,12 @@ namespace Farmacia.Criar_Pedido
         {
             init();
 
+            dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns["Cod"].Visible = false;
+            dataGridView1.Columns["EAN"].Visible = false;
+            dataGridView1.Columns["Categoria"].Visible = false;
+            dataGridView1.Columns["PrecoAnterior"].Visible = false;
+
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
             {
                 try
@@ -106,7 +112,7 @@ namespace Farmacia.Criar_Pedido
                 {
                     conexaoMySQL.Open();
 
-                    string mSQL = "Select `ID`,`Produto`,`Fornecedor`,`PrecoAtual` from produtos";
+                    string mSQL = "Select * from produtos";
 
                     MySqlCommand cmd = new MySqlCommand(mSQL, conexaoMySQL);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -129,12 +135,23 @@ namespace Farmacia.Criar_Pedido
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            Classes.vPedido.Produto = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            Classes.vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            Classes.vPedido.id = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            Classes.vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            Classes.vPedido.ean = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+            Classes.vPedido.Produto = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+            Classes.vPedido.Fornecedor = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+            Classes.vPedido.Categoria = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+            Classes.vPedido.PrecoAtual = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+            Classes.vPedido.PrecoAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
 
             Farmacia.Criar_Pedido.CriarPedido.ActiveForm.Refresh();
+            ((CriarPedido)this.Owner).pedidoUpdate();
             this.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Criar Pedido\CriarPedido.Designer.cs">
       <DependentUpon>CriarPedido.cs</DependentUpon>
     </Compile>
+    <Compile Include="Criar Pedido\listaPedido.cs" />
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>

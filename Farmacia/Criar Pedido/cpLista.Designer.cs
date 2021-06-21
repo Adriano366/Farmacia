@@ -53,9 +53,9 @@ namespace Farmacia.Criar_Pedido
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(320, 138);
+            this.groupBox1.Size = new System.Drawing.Size(379, 138);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pesquisa";
@@ -65,14 +65,14 @@ namespace Farmacia.Criar_Pedido
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(18, 83);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(175, 21);
             this.comboBox1.TabIndex = 3;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(18, 109);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(280, 23);
+            this.button1.Size = new System.Drawing.Size(338, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Pesquisar";
             this.button1.UseVisualStyleBackColor = true;
@@ -80,7 +80,7 @@ namespace Farmacia.Criar_Pedido
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(184, 83);
+            this.textBox3.Location = new System.Drawing.Point(239, 83);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(114, 20);
             this.textBox3.TabIndex = 1;
@@ -88,7 +88,7 @@ namespace Farmacia.Criar_Pedido
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(181, 66);
+            this.label3.Location = new System.Drawing.Point(236, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 0;
@@ -107,7 +107,7 @@ namespace Farmacia.Criar_Pedido
             // 
             this.textBox1.Location = new System.Drawing.Point(18, 37);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 20);
+            this.textBox1.Size = new System.Drawing.Size(338, 20);
             this.textBox1.TabIndex = 1;
             // 
             // label1
@@ -122,9 +122,9 @@ namespace Farmacia.Criar_Pedido
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(4, 149);
+            this.groupBox2.Location = new System.Drawing.Point(12, 156);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(320, 463);
+            this.groupBox2.Size = new System.Drawing.Size(379, 463);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lista";
@@ -132,21 +132,24 @@ namespace Farmacia.Criar_Pedido
             // dataGridView1
             // 
             this.dataGridView1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 20);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 20);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(307, 437);
+            this.dataGridView1.Size = new System.Drawing.Size(379, 437);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // cpLista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 614);
+            this.ClientSize = new System.Drawing.Size(405, 614);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "cpLista";

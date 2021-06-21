@@ -28,6 +28,12 @@ namespace Farmacia.Lista_de_Produtos
         {
 			init();
 
+            dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns["Cod"].HeaderText = "Código";
+            dataGridView1.Columns["Produto"].HeaderText = "Nome do Produto";
+            dataGridView1.Columns["PrecoAtual"].HeaderText = "Valor Atual";
+            dataGridView1.Columns["PrecoAnterior"].HeaderText = "Valor Anterior";
+
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
             {
                 try
@@ -103,13 +109,13 @@ namespace Farmacia.Lista_de_Produtos
             String query = "select * from produtos where `id` != 0";
 
             if (tbProduto.Length != 0)
-                query = query + " AND `produto` LIKE '%"+tbProduto+"%'";
+                query = query + " AND `Produto` LIKE '%"+tbProduto+"%'";
 
             if (tbCategoria.Length != 0)
-                query = query + " AND `categoria` LIKE '%" + tbCategoria + "%'";
+                query = query + " AND `Categoria` LIKE '%" + tbCategoria + "%'";
 
             if (tbFornecedor.Length != 0)
-                query = query + " AND `fornecedor` LIKE '%" + tbFornecedor + "%'";
+                query = query + " AND `Fornecedor` LIKE '%" + tbFornecedor + "%'";
 
 
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())

@@ -29,9 +29,10 @@ namespace Farmacia.Classes
 
 	public class vPedido
     {
+		public static int id_list;
 		public static String id;
 		public static String cod;
-		public static long ean;
+		public static String ean;
 		public static String Produto;
 		public static String Fornecedor;
 		public static String Categoria;
