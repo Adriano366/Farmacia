@@ -1,4 +1,5 @@
 ﻿using Farmacia.Classes;
+using MaterialSkin;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,21 @@ using System.Windows.Forms;
 
 namespace Farmacia.Cadastrar_Produto
 {
-    public partial class CadastroProduto : Form
+    public partial class CadastroProduto : MaterialSkin.Controls.MaterialForm
     {
         public CadastroProduto()
         {
             InitializeComponent();
+            // Criando um material theme manager e adicionando o formulário
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            // Definindo um esquema de Cor para formulário com tom Azul
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue400, Primary.Blue500,
+                Primary.Blue500, Accent.LightBlue200,
+                TextShade.WHITE
+            );
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -125,9 +136,7 @@ namespace Farmacia.Cadastrar_Produto
                 {
                     conexaoMySQL.Open();
 
-                    string mSQL = "Select * from produtos";
-
-                    MySqlCommand cmd = new MySqlCommand(mSQL, conexaoMySQL);
+                    MySqlCommand cmd = new MySqlCommand("", conexaoMySQL);
                     //cmd.CommandText = "INSERT INTO `farmacia`.`produtos` (`EAN`,`Produto`, `Fornecedor`, `Categoria`, `PrecoAtual`, `PrecoAnterior`) VALUES ('" + ean + "','" + produto+"', '"+fornecedor+"', '"+categoria+"', '"+valAt+"', '"+valAn+"')";
                     cmd.CommandText = "INSERT INTO `farmacia`.`produtos` (`Cod`, `EAN`, `Produto`, `Fornecedor`, `Categoria`, `PrecoAtual`, `PrecoAnterior`) VALUES ('"+cod+"', '" + ean + "','" + produto+"', '"+fornecedor+"', '"+categoria+"', '"+valAt+"', '"+valAn+"')";
                     cmd.ExecuteNonQuery();

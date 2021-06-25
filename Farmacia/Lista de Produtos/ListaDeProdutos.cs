@@ -8,15 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Farmacia.Classes;
+using MaterialSkin;
 using MySql.Data.MySqlClient;
 
 namespace Farmacia.Lista_de_Produtos
 {
-    public partial class ListaDeProdutos : Form
+    public partial class ListaDeProdutos : MaterialSkin.Controls.MaterialForm
     {
         public ListaDeProdutos()
         {
             InitializeComponent();
+            // Criando um material theme manager e adicionando o formulário
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            // Definindo um esquema de Cor para formulário com tom Azul
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue400, Primary.Blue500,
+                Primary.Blue500, Accent.LightBlue200,
+                TextShade.WHITE
+            );
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -33,6 +44,7 @@ namespace Farmacia.Lista_de_Produtos
             dataGridView1.Columns["Produto"].HeaderText = "Nome do Produto";
             dataGridView1.Columns["PrecoAtual"].HeaderText = "Valor Atual";
             dataGridView1.Columns["PrecoAnterior"].HeaderText = "Valor Anterior";
+            dataGridView1.Columns["Produto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
             {

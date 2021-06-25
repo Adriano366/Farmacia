@@ -1,4 +1,5 @@
 ﻿using Farmacia.Classes;
+using MaterialSkin;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,21 @@ using System.Windows.Forms;
 
 namespace Farmacia.Cadastrar_Fornecedor
 {
-    public partial class CadastroFornecedor : Form
+    public partial class CadastroFornecedor : MaterialSkin.Controls.MaterialForm
     {
         public CadastroFornecedor()
         {
             InitializeComponent();
+            // Criando um material theme manager e adicionando o formulário
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            // Definindo um esquema de Cor para formulário com tom Azul
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue400, Primary.Blue500,
+                Primary.Blue500, Accent.LightBlue200,
+                TextShade.WHITE
+            );
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -61,7 +72,7 @@ namespace Farmacia.Cadastrar_Fornecedor
 
         public void clearForm()
         {
-            textBox1.Clear();
+
             textBox2.Clear();
             textBox3.Clear();
             textBox4.Clear();
@@ -69,6 +80,21 @@ namespace Farmacia.Cadastrar_Fornecedor
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            clearForm();
+        }
+
+        private void CadastroFornecedor_Load(object sender, EventArgs e)
         {
 
         }

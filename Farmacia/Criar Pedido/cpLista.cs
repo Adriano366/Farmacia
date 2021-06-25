@@ -25,7 +25,7 @@ namespace Farmacia.Criar_Pedido
             String tbCategoria = textBox3.Text.ToString();
             String tbFornecedor = comboBox1.Text.ToString();
 
-            String query = "select `Produto`,`Fornecedor`,`PrecoAtual` from produtos where `id` != 0";
+            String query = "select * from produtos where `id` != 0";
 
             if (tbProduto.Length != 0)
                 query = query + " AND `produto` LIKE '%" + tbProduto + "%'";
@@ -60,6 +60,12 @@ namespace Farmacia.Criar_Pedido
                     conexaoMySQL.Close();
                 }
             }
+
+            dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns["Cod"].Visible = false;
+            dataGridView1.Columns["EAN"].Visible = false;
+            dataGridView1.Columns["Categoria"].Visible = false;
+            dataGridView1.Columns["PrecoAnterior"].Visible = false;
         }
 
         private void cpLista_Load(object sender, EventArgs e)
@@ -135,18 +141,21 @@ namespace Farmacia.Criar_Pedido
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Classes.vPedido.id = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            Classes.vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            Classes.vPedido.ean = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-            Classes.vPedido.Produto = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-            Classes.vPedido.Fornecedor = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-            Classes.vPedido.Categoria = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
-            Classes.vPedido.PrecoAtual = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
-            Classes.vPedido.PrecoAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+            if (e.RowIndex > -1)
+            {
+                Classes.vPedido.id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                Classes.vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                Classes.vPedido.ean = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                vPedido.Produto = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                Classes.vPedido.Fornecedor = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                Classes.vPedido.Categoria = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                Classes.vPedido.PrecoAtual = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+                Classes.vPedido.PrecoAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
 
-            Farmacia.Criar_Pedido.CriarPedido.ActiveForm.Refresh();
-            ((CriarPedido)this.Owner).pedidoUpdate();
-            this.Close();
+                Farmacia.Criar_Pedido.CriarPedido.ActiveForm.Refresh();
+                ((CriarPedido)this.Owner).pedidoUpdate();
+                this.Close();
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -30,7 +30,7 @@ namespace Farmacia.Classes
 	public class vPedido
     {
 		public static int id_list;
-		public static String id;
+		public static int id;
 		public static String cod;
 		public static String ean;
 		public static String Produto;
@@ -38,5 +38,17 @@ namespace Farmacia.Classes
 		public static String Categoria;
 		public static String PrecoAtual;
 		public static String PrecoAnterior;
+
+		public static String comprador;
+		public static float valorTotal;
+		public static int cntItens;
+		public static String Data;
     }
+
+	public class exProduto
+	{
+		public static int id { get; set; }
+		public static String produto { get; set; }
+
+	}
 }
