@@ -87,3 +87,4 @@ C:\Users\adria\Documents\GitHub\Farmacia\Farmacia\obj\Debug\Farmacia.exe
 C:\Users\adria\Documents\GitHub\Farmacia\Farmacia\obj\Debug\Farmacia.pdb
 C:\Users\adria\Documents\GitHub\Farmacia\Farmacia\obj\Debug\Farmacia.Criar_Pedido.NovoPedido.resources
 C:\Users\adria\Documents\GitHub\Farmacia\Farmacia\bin\Debug\MaterialSkin.dll
+C:\Users\adria\Documents\GitHub\Farmacia\Farmacia\obj\Debug\Farmacia.Lista_de_Produtos.AtualizarProduto.resources

@@ -15,6 +15,7 @@ namespace Farmacia.Lista_de_Produtos
 {
     public partial class ListaDeProdutos : MaterialSkin.Controls.MaterialForm
     {
+
         public ListaDeProdutos()
         {
             InitializeComponent();
@@ -39,12 +40,12 @@ namespace Farmacia.Lista_de_Produtos
         {
 			init();
 
-            dataGridView1.Columns["ID"].Visible = false;
-            dataGridView1.Columns["Cod"].HeaderText = "Código";
-            dataGridView1.Columns["Produto"].HeaderText = "Nome do Produto";
-            dataGridView1.Columns["PrecoAtual"].HeaderText = "Valor Atual";
-            dataGridView1.Columns["PrecoAnterior"].HeaderText = "Valor Anterior";
-            dataGridView1.Columns["Produto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dvgLista.Columns["ID"].Visible = false;
+            dvgLista.Columns["Cod"].HeaderText = "Código";
+            dvgLista.Columns["Produto"].HeaderText = "Nome do Produto";
+            dvgLista.Columns["PrecoAtual"].HeaderText = "Valor Atual";
+            dvgLista.Columns["PrecoAnterior"].HeaderText = "Valor Anterior";
+            dvgLista.Columns["Produto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
             {
@@ -93,7 +94,7 @@ namespace Farmacia.Lista_de_Produtos
 
 					DataTable dtMensagens = new DataTable();
 					da.Fill(dtMensagens);
-					this.dataGridView1.DataSource = dtMensagens;
+					this.dvgLista.DataSource = dtMensagens;
 				}
 				catch (MySqlException msqle)
 				{
@@ -141,7 +142,7 @@ namespace Farmacia.Lista_de_Produtos
 
                     DataTable dtMensagens = new DataTable();
                     da.Fill(dtMensagens);
-                    this.dataGridView1.DataSource = dtMensagens;
+                    this.dvgLista.DataSource = dtMensagens;
                 }
                 catch (MySqlException msqle)
                 {
@@ -152,6 +153,8 @@ namespace Farmacia.Lista_de_Produtos
                 {
                     conexaoMySQL.Close();
                 }
+
+                dvgLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
 
@@ -163,6 +166,26 @@ namespace Farmacia.Lista_de_Produtos
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int idx = dvgLista.CurrentCell.RowIndex;
+            if (idx != 0)
+            {
+
+                int mid = int.Parse(dvgLista.Rows[idx].Cells[0].Value.ToString());
+                int cod = int.Parse(dvgLista.Rows[idx].Cells[1].Value.ToString());
+                String fProduto = dvgLista.Rows[idx].Cells[3].Value.ToString();
+                String fEAN = dvgLista.Rows[idx].Cells[2].Value.ToString();
+                String fFornecedor = dvgLista.Rows[idx].Cells[4].Value.ToString();
+                String fCategoria = dvgLista.Rows[idx].Cells[5].Value.ToString();
+                String fValor = dvgLista.Rows[idx].Cells[6].Value.ToString();
+
+                Lista_de_Produtos.AtualizarProduto cpl = new Lista_de_Produtos.AtualizarProduto(mid, cod, fProduto, fEAN, fFornecedor, fCategoria, fValor);
+                cpl.Owner = this;
+                cpl.ShowDialog();
+            }
         }
     }
 }
