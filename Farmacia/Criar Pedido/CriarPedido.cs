@@ -1,10 +1,13 @@
 ﻿using Farmacia.Classes;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using MaterialSkin;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -413,6 +416,110 @@ namespace Farmacia.Criar_Pedido
 
 
          }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (gvPedido.Rows.Count > 0)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "PDF (*.pdf)|*.pdf";
+                sfd.FileName = vPedido.comprador+".pdf";
+                bool fileError = false;
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(sfd.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(sfd.FileName);
+                        }
+                        catch (IOException ex)
+                        {
+                            fileError = true;
+                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                        }
+                    }
+                    if (!fileError)
+                    {
+                        try
+                        {
+                            PdfPTable pdfTable = new PdfPTable(gvPedido.Columns.Count);
+                            pdfTable.DefaultCell.Padding = 3;
+                            pdfTable.WidthPercentage = 100;
+                            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                            //foreach (DataGridViewColumn column in gvPedido.Columns)
+                            //{
+                            //    if (column.HeaderText == "ID_List" ||
+                            //        column.HeaderText == "ID" ||
+                            //        column.HeaderText == "EAN" ||
+                            //        column.HeaderText == "Valor_Anteior")
+                            //        continue;
+                            //    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+                            //    pdfTable.AddCell(cell);
+                            //}
+
+
+                            //foreach (DataGridViewRow row in gvPedido.Rows)
+                            //{
+                            //    foreach (DataGridViewCell cell in row.Cells)
+                            //    {
+                            //        if(cell.Value != null)
+                            //            pdfTable.AddCell(cell.Value.ToString());
+                            //    }
+                            //}
+
+                            PdfPCell cell;
+                            for (int c = 0; c < gvPedido.Columns.Count; c++)
+                            {
+                                if (gvPedido.Columns[c].Visible == false)
+                                    continue;
+
+                                cell = new PdfPCell(new Phrase(gvPedido.Columns[c].HeaderText));
+                                pdfTable.AddCell(cell);
+                            }
+
+                            for (int i = 0; i < gvPedido.Rows.Count - 1; i++)
+                            {
+                                for (int j = 0; j < gvPedido.Columns.Count; j++)
+                                {
+                                    if (gvPedido.Columns[j].Visible == false)
+                                        continue;
+                   
+                                    if (gvPedido.Rows[i].Cells[j].Value != null)
+                                    {
+                                        cell = new PdfPCell(new Phrase(gvPedido.Rows[i].Cells[j].Value.ToString()));
+                                        pdfTable.AddCell(cell);
+                                    }
+
+                                }
+                            }
+
+
+                            using (FileStream stream = new FileStream(sfd.FileName, FileMode.Create))
+                            {
+                                Document pdfDoc = new Document(PageSize.A4, 10f, 20f, 20f, 10f);
+                                PdfWriter.GetInstance(pdfDoc, stream);
+                                pdfDoc.Open();
+                                pdfDoc.Add(pdfTable);
+                                pdfDoc.Close();
+                                stream.Close();
+                            }
+
+                            MessageBox.Show("Pedido exportado com sucesso.", "Exportação PDF");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Record To Export !!!", "Info");
+            }
+        }
     }
 
     class pList

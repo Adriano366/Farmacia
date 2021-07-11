@@ -1,4 +1,5 @@
 ﻿using Farmacia.Classes;
+using MaterialSkin;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,21 @@ using System.Windows.Forms;
 
 namespace Farmacia.Criar_Pedido
 {
-    public partial class cpLista : Form
+    public partial class cpLista : MaterialSkin.Controls.MaterialForm
     {
         public cpLista()
         {
             InitializeComponent();
+            // Criando um material theme manager e adicionando o formulário
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            // Definindo um esquema de Cor para formulário com tom Azul
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue400, Primary.Blue500,
+                Primary.Blue500, Accent.LightBlue200,
+                TextShade.WHITE
+            );
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -143,14 +154,14 @@ namespace Farmacia.Criar_Pedido
         {
             if (e.RowIndex > -1)
             {
-                Classes.vPedido.id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-                Classes.vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                Classes.vPedido.ean = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                vPedido.id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                vPedido.cod = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                vPedido.ean = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 vPedido.Produto = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                Classes.vPedido.Fornecedor = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-                Classes.vPedido.Categoria = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
-                Classes.vPedido.PrecoAtual = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
-                Classes.vPedido.PrecoAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+                vPedido.Fornecedor = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                vPedido.Categoria = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                vPedido.PrecoAtual = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+                vPedido.PrecoAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
 
                 Farmacia.Criar_Pedido.CriarPedido.ActiveForm.Refresh();
                 ((CriarPedido)this.Owner).pedidoUpdate();

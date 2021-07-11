@@ -16,6 +16,7 @@ namespace Farmacia.Lista_de_Produtos
     public partial class AtualizarProduto : MaterialSkin.Controls.MaterialForm
     {
         int gid;
+        float valotat;
         public AtualizarProduto(int id, int cod, String produto, String ean, String fornecedor, String categoria, String valor)
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace Farmacia.Lista_de_Produtos
             tbValor.Text = valor;
 
             gid = id;
+            valotat = float.Parse(valor);
 
         }
 
@@ -52,38 +54,6 @@ namespace Farmacia.Lista_de_Produtos
 
         }
 
-        private void CadastroProduto_Load(object sender, EventArgs e)
-        {
-            using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
-            {
-                try
-                {
-                    conexaoMySQL.Open();
-
-                    string mSQL = "Select * from fornecedor";
-
-                    MySqlCommand cmd = new MySqlCommand(mSQL, conexaoMySQL);
-                    //cmd.ExecuteNonQuery();
-
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        // idnumber = reader.ToString();
-                        tbFornecedor.Items.Add(reader.GetString(1));
-                    }
-
-                }
-                catch (MySqlException msqle)
-                {
-                    MessageBox.Show("Erro de acesso ao Banco de Dados : " + msqle.Message, "Cadastro de Produtos");
-                }
-                finally
-                {
-                    conexaoMySQL.Close();
-                }
-            }
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -127,7 +97,7 @@ namespace Farmacia.Lista_de_Produtos
 
 
 
-            atualizarP(gid, bCod, bProduto, bEan, bFornecedor, bCategoria, bValor, 0);
+            atualizarP(gid, bCod, bProduto, bEan, bFornecedor, bCategoria, bValor, valotat.ToString());
 
         }
 
@@ -140,7 +110,7 @@ namespace Farmacia.Lista_de_Produtos
             tbCod.Clear();
         }
         
-        public void atualizarP(int id, int cod, String produto, long ean, String fornecedor, String categoria, String valAt, Double valAn)
+        public void atualizarP(int id, int cod, String produto, long ean, String fornecedor, String categoria, String valAt, String valAn)
         {
             using (MySqlConnection conexaoMySQL = daoMySQL.getInstancia().getConexao())
             {
@@ -164,6 +134,9 @@ namespace Farmacia.Lista_de_Produtos
                 finally
                 {
                     conexaoMySQL.Close();
+
+                    ListaDeProdutos.ActiveForm.Refresh();
+                    ((ListaDeProdutos)this.Owner).init();
                     this.Close();
                 }
             }
@@ -187,6 +160,11 @@ namespace Farmacia.Lista_de_Produtos
         private void button5_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void AtualizarProduto_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

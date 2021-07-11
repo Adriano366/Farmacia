@@ -522,6 +522,7 @@ namespace Farmacia.Criar_Pedido
             this.button4.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.button4.UseAccentColor = false;
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // CriarPedido
             // 

@@ -268,7 +268,7 @@ namespace Farmacia.Lista_de_Produtos
             this.Controls.Add(this.groupBox1);
             this.Name = "AtualizarProduto";
             this.Text = "Atualizar Produtos";
-            this.Load += new System.EventHandler(this.CadastroProduto_Load);
+            this.Load += new System.EventHandler(this.AtualizarProduto_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
